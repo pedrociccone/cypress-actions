@@ -1,0 +1,20 @@
+name: Cypress tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1
+      options: --user 1001
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3.5.2
+      
+      - name: Install dependencies
+        run: yarn install
+        
+      - name: Run E2E Tests
+        run: npx cypress run
